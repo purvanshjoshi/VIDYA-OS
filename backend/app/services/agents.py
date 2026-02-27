@@ -51,15 +51,24 @@ async def router_node(state: AgentState):
     return {"next_node": next_node}
 
 
+from app.services.rag import rag_service
+
 async def professor_node(state: AgentState):
-    """The Academic Persona (Learn Pillar)"""
+    """The Academic Persona (Learn Pillar) with Sovereign RAG"""
     messages = state["messages"]
+    last_query = messages[-1].content
     model = get_model()
+    
+    # RAG Retrieval
+    context_snippets = rag_service.search(last_query)
+    context_str = "\n".join(context_snippets) if context_snippets else "No specific campus knowledge found."
     
     system_msg = SystemMessage(content=(
         "You are Professor VIDYA, a sovereign AI tutor for Indian campuses. "
         "Explain concepts step-by-step. Support Hinglish seamlessly. "
-        "Always be encouraging and academic."
+        "Use the following Campus Knowledge context if relevant:\n\n"
+        f"{context_str}\n\n"
+        "Always be encouraging, academic, and cite context if used."
     ))
     
     # We prefix with system message but keep history
