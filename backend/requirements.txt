@@ -9,3 +9,4 @@ qdrant-client==1.9.1
 sentence-transformers==3.0.1
 langchain-core>=0.2.19
 langgraph>=0.1.9
+langchain-openai>=0.1.0
