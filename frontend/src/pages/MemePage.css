@@ -1,124 +1,136 @@
 .meme-page {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
 .meme-layout {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 20px;
-    margin-top: 24px;
+    grid-template-columns: 380px 1fr;
+    gap: 32px;
+}
+
+@media (max-width: 1000px) {
+    .meme-layout {
+        grid-template-columns: 1fr;
+    }
 }
 
 .situation-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 16px;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 .situation-item {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 12px 16px;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    padding: 14px 20px;
+    border-radius: var(--radius-lg);
     text-align: left;
-    color: var(--text-muted);
-    transition: all 0.2s;
+    color: var(--text-dim);
+    transition: all 0.3s ease;
     font-size: 14px;
+    font-weight: 600;
 }
 
 .situation-item:hover {
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+    color: var(--text-pure);
 }
 
 .situation-item.active {
-    background: rgba(139, 92, 246, 0.1);
-    border-color: rgba(139, 92, 246, 0.3);
-    color: var(--primary-light);
-    font-weight: 500;
+    background: rgba(124, 58, 237, 0.1);
+    border-color: var(--primary-violet);
+    color: var(--primary-violet);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
 }
 
-.meme-preview {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
+/* ── Meme Card ── */
 .meme-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 24px;
+    background: var(--surface-obsidian);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-max);
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .meme-main {
     width: 100%;
+    max-width: 500px;
     aspect-ratio: 1 / 1;
     background: #000;
-    border: 4px solid #fff;
+    border: 8px solid white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 24px;
+    padding: 32px;
     position: relative;
-    overflow: hidden;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
 }
 
 .meme-top-text,
 .meme-bottom-text {
-    color: #fff;
-    font-family: 'Impact', 'Anton', sans-serif;
+    color: white;
+    font-family: 'Clash Display', sans-serif;
     text-transform: uppercase;
-    font-size: 32px;
+    font-size: 42px;
+    font-weight: 900;
     line-height: 1;
-    -webkit-text-stroke: 1.5px #000;
-    text-shadow: 2px 2px 0 #000;
+    -webkit-text-stroke: 2px black;
+    text-shadow: 4px 4px 0 black;
     z-index: 2;
 }
 
-.meme-visual {
+.meme-visual-premium {
+    flex: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    color: var(--primary);
-    z-index: 1;
+    position: relative;
+}
+
+.meme-icon-bg {
+    color: var(--primary-violet);
+    opacity: 0.1;
+    transform: scale(3);
 }
 
 .meme-overlay-sit {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.4);
-    font-style: italic;
-    max-width: 200px;
-}
-
-.meme-actions {
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-violet);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: white;
+    white-space: nowrap;
 }
 
 .meme-placeholder {
+    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    height: 400px;
-    color: var(--text-muted);
+    gap: 24px;
+    color: var(--text-ghost);
+    background: rgba(255, 255, 255, 0.01);
+    border: 2px dashed var(--glass-border);
+    border-radius: var(--radius-max);
 }
 
-@media (max-width: 768px) {
-    .meme-layout {
-        grid-template-columns: 1fr;
-    }
+.placeholder-icon {
+    opacity: 0.05;
+    transform: scale(2);
 }

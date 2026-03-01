@@ -85,143 +85,135 @@ export default function OperatePage() {
     const maxOcc = Math.max(...buildings.map(b => b.occupancy), 1)
 
     return (
-        <div className="operate-page fade-in">
-            <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div className="operate-page">
+            <motion.div
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="page-header Savant-header"
+            >
                 <div>
-                    <h1><span className="gradient-text" style={{ backgroundImage: 'linear-gradient(135deg,#10b981,#3b82f6)' }}>OPERATE</span> — Campus OS</h1>
-                    <p>Real-time campus intelligence • Updated {lastUpdate || '—'}</p>
+                    <h1><span className="gradient-text">OPERATE</span> — Campus Intelligence</h1>
+                    <p className="indic">Sovereign real-time monitoring • Last updated {lastUpdate || '—'}</p>
                 </div>
-                <button className="btn btn-ghost" onClick={fetchMetrics}><RefreshCw size={14} /> Refresh</button>
-            </div>
+                <div className="header-actions">
+                    <div className="live-status-badge">
+                        <div className="pulse-dot" />
+                        AMD ROCm Engine Online
+                    </div>
+                    <button className="btn btn-ghost" onClick={fetchMetrics}><RefreshCw size={14} /> Sync</button>
+                </div>
+            </motion.div>
 
-            {/* KPI Cards */}
-            <div className="kpi-grid">
-                <div className="kpi-card">
-                    <div className="kpi-icon" style={{ background: 'rgba(99,102,241,0.1)', color: 'var(--primary)' }}>
-                        <Users size={20} />
-                    </div>
-                    <div className="kpi-label">Total Footfall</div>
-                    <div className="kpi-value" style={{ color: 'var(--primary-light)' }}>{kpis.total_footfall?.toLocaleString()}</div>
-                    <div className="kpi-change kpi-up">↑ Live counting</div>
+            {/* Bento Grid Dashboard */}
+            <div className="bento-dashboard">
+                {/* KPI Area */}
+                <div className="bento-item kpi-strip">
+                    {[
+                        { icon: Users, label: "Footfall", val: kpis.total_footfall?.toLocaleString(), color: "var(--primary-violet)" },
+                        { icon: Zap, label: "Energy", val: `${kpis.total_energy_kwh} kWh`, color: "var(--accent-saffron)" },
+                        { icon: MapPin, label: "Active", val: `${kpis.active_spaces}/8`, color: "var(--secondary-emerald)" },
+                        { icon: Wind, label: "AQI", val: kpis.air_quality_aqi, color: kpis.air_quality_aqi < 50 ? 'var(--secondary-emerald)' : 'var(--accent-saffron)' }
+                    ].map((k, i) => (
+                        <motion.div
+                            key={k.label}
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: i * 0.1 }}
+                            className="mini-kpi glass"
+                        >
+                            <k.icon size={16} color={k.color} />
+                            <div>
+                                <div className="mk-val" style={{ color: k.color }}>{k.val}</div>
+                                <div className="mk-lab">{k.label}</div>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
-                <div className="kpi-card">
-                    <div className="kpi-icon" style={{ background: 'rgba(245,158,11,0.1)', color: 'var(--warning)' }}>
-                        <Zap size={20} />
-                    </div>
-                    <div className="kpi-label">Energy (kWh)</div>
-                    <div className="kpi-value" style={{ color: 'var(--accent)' }}>{kpis.total_energy_kwh}</div>
-                    <div className={`kpi-change ${kpis.total_energy_kwh > 450 ? 'kpi-down' : 'kpi-up'}`}>
-                        {kpis.total_energy_kwh > 450 ? '↑ Above average' : '● Normal range'}
-                    </div>
-                </div>
-                <div className="kpi-card">
-                    <div className="kpi-icon" style={{ background: 'rgba(16,185,129,0.1)', color: 'var(--success)' }}>
-                        <MapPin size={20} />
-                    </div>
-                    <div className="kpi-label">Active Spaces</div>
-                    <div className="kpi-value" style={{ color: 'var(--success)' }}>{kpis.active_spaces} / 8</div>
-                    <div className="kpi-change kpi-up">↑ {Math.round(kpis.active_spaces / 8 * 100)}% utilised</div>
-                </div>
-                <div className="kpi-card">
-                    <div className="kpi-icon" style={{ background: 'rgba(59,130,246,0.1)', color: 'var(--info)' }}>
-                        <Wind size={20} />
-                    </div>
-                    <div className="kpi-label">Air Quality (AQI)</div>
-                    <div className="kpi-value" style={{ color: kpis.air_quality_aqi < 50 ? 'var(--success)' : kpis.air_quality_aqi < 100 ? 'var(--accent)' : 'var(--danger)' }}>
-                        {kpis.air_quality_aqi}
-                    </div>
-                    <div className={`kpi-change ${kpis.air_quality_aqi < 50 ? 'kpi-up' : 'kpi-down'}`}>
-                        {kpis.air_quality_aqi < 50 ? '● Good' : kpis.air_quality_aqi < 100 ? '● Moderate' : '● Unhealthy'}
-                    </div>
-                </div>
-            </div>
 
-            {/* Charts Row */}
-            <div className="two-col" style={{ marginBottom: 20 }}>
-                <div className="card">
-                    <div className="card-title"><Zap size={14} /> 24-Hour Energy (kWh)</div>
-                    <ResponsiveContainer width="100%" height={200}>
-                        <AreaChart data={history} margin={{ top: 5, right: 5, bottom: 0, left: -20 }}>
+                {/* Main Visual: Energy Chart */}
+                <motion.div
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="bento-item main-chart glass"
+                >
+                    <div className="card-title"><Zap size={14} /> Power Grid Load</div>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <AreaChart data={history} margin={{ top: 10, right: 10, bottom: 0, left: -10 }}>
                             <defs>
                                 <linearGradient id="energyGrad" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                                    <stop offset="5%" stopColor="var(--accent-saffron)" stopOpacity={0.2} />
+                                    <stop offset="95%" stopColor="var(--accent-saffron)" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
-                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                            <XAxis dataKey="hour" tick={{ fill: '#5a5a7a', fontSize: 10 }} tickLine={false} />
-                            <YAxis tick={{ fill: '#5a5a7a', fontSize: 10 }} axisLine={false} />
+                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
+                            <XAxis dataKey="hour" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-ghost)', fontSize: 11 }} />
+                            <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-ghost)', fontSize: 11 }} />
                             <Tooltip content={<CustomTooltip />} />
-                            <Area type="monotone" dataKey="energy" name="Energy kWh" stroke="#f59e0b" fill="url(#energyGrad)" strokeWidth={2} dot={false} />
+                            <Area type="monotone" dataKey="energy" stroke="var(--accent-saffron)" fill="url(#energyGrad)" strokeWidth={3} />
                         </AreaChart>
                     </ResponsiveContainer>
-                </div>
+                </motion.div>
 
-                <div className="card">
-                    <div className="card-title"><Users size={14} /> 24-Hour Footfall</div>
-                    <ResponsiveContainer width="100%" height={200}>
-                        <AreaChart data={history} margin={{ top: 5, right: 5, bottom: 0, left: -20 }}>
-                            <defs>
-                                <linearGradient id="footGrad" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-                                </linearGradient>
-                            </defs>
-                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                            <XAxis dataKey="hour" tick={{ fill: '#5a5a7a', fontSize: 10 }} tickLine={false} />
-                            <YAxis tick={{ fill: '#5a5a7a', fontSize: 10 }} axisLine={false} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Area type="monotone" dataKey="footfall" name="Footfall" stroke="#6366f1" fill="url(#footGrad)" strokeWidth={2} dot={false} />
-                        </AreaChart>
-                    </ResponsiveContainer>
-                </div>
-            </div>
-
-            {/* Buildings + Alerts */}
-            <div className="two-col">
-                {/* Space Utilisation */}
-                <div className="card">
-                    <div className="card-title"><MapPin size={14} /> Space Utilisation</div>
-                    <div className="buildings-list">
-                        {buildings.map((b, i) => (
-                            <div key={b.id} className="building-row">
-                                <div className="building-name">{b.name}</div>
-                                <div className="building-bar-wrap">
-                                    <div className="building-bar" style={{
-                                        width: `${(b.occupancy / maxOcc) * 100}%`,
-                                        background: BUILDING_COLORS[i % BUILDING_COLORS.length]
-                                    }} />
+                {/* Sidebar area: Alerts */}
+                <motion.div
+                    initial={{ x: 20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="bento-item alerts-panel glass"
+                >
+                    <div className="card-title">
+                        <AlertTriangle size={14} /> AI Diagnostics
+                        {alerts.length > 0 && <span className="alert-count">{alerts.length}</span>}
+                    </div>
+                    <div className="alerts-scroll">
+                        {alerts.length === 0 ? (
+                            <div className="all-clear">
+                                <CheckCircle size={40} color="var(--secondary-emerald)" />
+                                <p>Sovereign systems optimal</p>
+                            </div>
+                        ) : (
+                            alerts.map((a, i) => (
+                                <div key={i} className={`savant-alert alert-${a.severity}`}>
+                                    <div className="sa-head">
+                                        <SeverityIcon severity={a.severity} />
+                                        <span>{a.location}</span>
+                                        <span className="sa-time">{a.time}</span>
+                                    </div>
+                                    <div className="sa-body">{a.message}</div>
                                 </div>
-                                <div className="building-pct">{b.occupancy}%</div>
+                            ))
+                        )}
+                    </div>
+                </motion.div>
+
+                {/* Bottom area: Space Utilisation & Analytics */}
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                    className="bento-item spaces-grid glass"
+                >
+                    <div className="card-title"><MapPin size={14} /> Occupancy Matrix</div>
+                    <div className="matrix-wrap">
+                        {buildings.map((b, i) => (
+                            <div key={b.id} className="matrix-tile">
+                                <div className="mt-head">
+                                    <span className="mt-name">{b.name}</span>
+                                    <span className="mt-pct">{b.occupancy}%</span>
+                                </div>
+                                <div className="mt-bar-wrap">
+                                    <motion.div
+                                        className="mt-bar"
+                                        initial={{ width: 0 }}
+                                        animate={{ width: `${b.occupancy}%` }}
+                                        style={{ background: BUILDING_COLORS[i % BUILDING_COLORS.length] }}
+                                    />
+                                </div>
                             </div>
                         ))}
                     </div>
-                </div>
-
-                {/* Alerts */}
-                <div className="card">
-                    <div className="card-title">
-                        <AlertTriangle size={14} />
-                        AI Alerts
-                        {alerts.length > 0 && <span className="badge badge-warning" style={{ marginLeft: 'auto' }}>{alerts.length}</span>}
-                    </div>
-                    {alerts.length === 0
-                        ? <div className="no-alerts"><CheckCircle size={32} color="var(--success)" /><p>All systems normal</p></div>
-                        : <div className="alerts-list">
-                            {alerts.map((a, i) => (
-                                <div key={i} className={`alert-item alert-${a.severity}`}>
-                                    <div className="alert-header">
-                                        <SeverityIcon severity={a.severity} />
-                                        <span className="alert-loc">{a.location}</span>
-                                        <AlertBadge severity={a.severity} />
-                                        <span className="alert-time">{a.time}</span>
-                                    </div>
-                                    <div className="alert-msg">{a.message}</div>
-                                </div>
-                            ))}
-                        </div>
-                    }
-                </div>
+                </motion.div>
             </div>
         </div>
     )

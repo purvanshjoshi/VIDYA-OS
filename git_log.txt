@@ -1,0 +1,15 @@
+﻿f3d34fe fix(backend): fix NameError in router.py by importing APIRouter
+8fb7a25 fix(backend): fix NameError in create.py by importing Optional
+a2fe8c7 fix(rag): align collection name between ingest script and backend config
+1ce516b feat(final-polish): integrate real-world campus trends & RAG ingestion tool
+5c101ac fix(frontend): resolve black screen by adding missing 'Laugh' icon import
+5ec1036 feat(meme): add AI-powered Meme Zone for campus engagement
+3c0f38a fix(api): fix 422 errors and complete backend logic
+362ea70 feat(rag): implement Sovereign RAG with Qdrant integration
+a572612 feat(agentic-brain): implement LangGraph Multi-Agent stateful engine
+0f76d6c fix(deploy): fix vercel build by moving vercel.json into frontend root
+fce1f61 fix(backend): resolve langchain-core version conflict for langgraph
+4c44f0d feat(deploy): Full deployment config for HF Spaces + Vercel
+f7cbcf3 feat(v2.0): VIDYA OS Bharat-First Global Sovereign AI Platform
+fae1db7 feat: Build VIDYA OS - AMD Slingshot 2025
+42c6595 Initial commit

@@ -41,24 +41,30 @@ function Sidebar({ open, setOpen }) {
           </div>
         </div>
 
-        {/* Status */}
-        <div className="sidebar-status">
-          <div className="pulse-dot" />
-          <span>Sovereign SLM Active</span>
+        {/* Savant Status */}
+        <div className="sidebar-status glass">
+          <div className="pulse-dot" style={{ background: 'var(--secondary-emerald)' }} />
+          <span style={{ color: 'var(--text-pure)', fontWeight: 700 }}>SOVEREIGN ACTIVE</span>
         </div>
 
         {/* Nav */}
         <nav className="sidebar-nav">
           <div className="nav-section-label">Intelligence Pillars</div>
-          {navItems.map(({ to, icon: Icon, label, sub, color }) => (
-            <NavLink key={to} to={to} className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-              style={({ isActive }) => isActive ? { '--nav-color': color } : {}}>
-              <div className="nav-icon"><Icon size={18} /></div>
-              <div>
-                <NavLabel label={label} />
-                <div className="nav-sub">{sub}</div>
-              </div>
-            </NavLink>
+          {navItems.map(({ to, icon: Icon, label, sub, color }, idx) => (
+            <motion.div
+              key={to}
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: idx * 0.1 + 0.3 }}
+            >
+              <NavLink to={to} className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                <div className="nav-icon"><Icon size={20} alt={label} /></div>
+                <div>
+                  <NavLabel label={label} />
+                  <div className="nav-sub">{sub}</div>
+                </div>
+              </NavLink>
+            </motion.div>
           ))}
         </nav>
 

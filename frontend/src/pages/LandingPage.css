@@ -7,47 +7,116 @@
     overflow: hidden;
 }
 
-/* Hero */
+/* ── Hero ── */
 .hero {
     text-align: center;
-    padding: 40px 20px 20px;
+    padding: 80px 20px 40px;
     position: relative;
+    z-index: 10;
+}
+
+.hero-core-wrap {
+    margin-bottom: 40px;
+    perspective: 1000px;
+}
+
+.sovereign-core {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.core-icon {
+    color: var(--primary-violet);
+    filter: drop-shadow(0 0 15px var(--primary-glow));
+    z-index: 5;
+    animation: core-float 3s ease-in-out infinite;
+}
+
+.core-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--primary-violet);
+    border-radius: 40%;
+    opacity: 0.3;
+    animation: core-rotate 8s linear infinite;
+}
+
+.core-ring:nth-child(2) {
+    border-radius: 35%;
+    animation-duration: 12s;
+    animation-direction: reverse;
+    opacity: 0.2;
+}
+
+.core-ring:nth-child(3) {
+    border-radius: 45%;
+    animation-duration: 15s;
+    opacity: 0.1;
+}
+
+@keyframes core-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes core-float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-10px) scale(1.05);
+    }
 }
 
 .hero-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    gap: 10px;
+    padding: 8px 20px;
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.2);
     border-radius: 999px;
-    font-size: 12px;
-    color: var(--primary-light);
-    font-weight: 600;
-    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--text-pure);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 32px;
 }
 
 .hero-title {
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 20px;
+    font-size: clamp(40px, 8vw, 72px);
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
 }
 
 .hero-sub {
-    font-size: 16px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 32px;
-    max-width: 600px;
+    font-size: 18px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 48px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .hero-actions {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -60,19 +129,24 @@
 }
 
 .stat-card {
-    padding: 20px;
+    padding: 32px 20px;
     text-align: center;
-    transition: var(--transition);
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s var(--spring-soft);
 }
 
 .stat-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-8px);
+    background: rgba(124, 58, 237, 0.05);
+    border-color: var(--primary-violet);
 }
 
 .stat-value {
-    font-size: 36px;
-    font-weight: 900;
-    font-family: 'Space Grotesk', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: 'Clash Display', sans-serif;
 }
 
 .stat-label {
@@ -89,15 +163,14 @@
 
 /* Pillars */
 .section-title {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    margin-bottom: 20px;
+    letter-spacing: 0.15em;
+    color: var(--primary-violet);
+    margin-bottom: 24px;
+    font-family: 'Clash Display', sans-serif;
 }
-
-.pillars-section {}
 
 .pillars-grid {
     display: grid;

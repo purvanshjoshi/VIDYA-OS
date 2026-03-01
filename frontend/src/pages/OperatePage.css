@@ -1,7 +1,195 @@
 .operate-page {
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 32px;
+}
+
+.Savant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.05), transparent);
+    border-radius: var(--radius-xl);
+    border-left: 4px solid var(--primary-violet);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.live-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--secondary-emerald);
+}
+
+/* ── Bento Dashboard ── */
+.bento-dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 24px;
+}
+
+.bento-item {
+    padding: 24px;
+}
+
+.kpi-strip {
+    grid-column: span 4;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0;
+}
+
+.mini-kpi {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: var(--radius-xl);
+}
+
+.mk-val {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Clash Display', sans-serif;
+    line-height: 1;
+}
+
+.mk-lab {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-ghost);
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+}
+
+.main-chart {
+    grid-column: span 3;
+    min-height: 400px;
+}
+
+.alerts-panel {
+    grid-column: span 1;
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+}
+
+.alert-count {
+    margin-left: auto;
+    background: var(--accent-saffron);
+    color: var(--base-void);
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.alerts-scroll {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.savant-alert {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-lg);
+    border-left: 3px solid;
+    transition: all 0.3s ease;
+}
+
+.alert-critical {
+    border-color: #ef4444;
+}
+
+.alert-warning {
+    border-color: var(--accent-saffron);
+}
+
+.sa-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.sa-time {
+    margin-left: auto;
+    font-size: 10px;
+    color: var(--text-ghost);
+}
+
+.sa-body {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+.spaces-grid {
+    grid-column: span 4;
+}
+
+.matrix-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.matrix-tile {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-lg);
+}
+
+.mt-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.mt-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.mt-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-pure);
+}
+
+.mt-bar-wrap {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.mt-bar {
+    height: 100%;
+    border-radius: 99px;
 }
 
 .operate-loading {
@@ -11,137 +199,22 @@
     justify-content: center;
     height: 60vh;
     gap: 16px;
-    color: var(--text-muted);
+    color: var(--primary-violet);
 }
 
-.kpi-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-}
+@media (max-width: 1200px) {
+    .bento-dashboard {
+        grid-template-columns: 1fr;
+    }
 
-/* Chart tooltip */
-.chart-tooltip {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 12px;
-}
+    .main-chart,
+    .alerts-panel,
+    .kpi-strip,
+    .spaces-grid {
+        grid-column: span 1;
+    }
 
-.ct-label {
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.ct-row {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
-
-/* Buildings */
-.buildings-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.building-row {
-    display: grid;
-    grid-template-columns: 120px 1fr 40px;
-    align-items: center;
-    gap: 10px;
-}
-
-.building-name {
-    font-size: 12px;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.building-bar-wrap {
-    height: 8px;
-    background: var(--bg-surface);
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.building-bar {
-    height: 100%;
-    border-radius: 999px;
-    transition: width 0.8s ease;
-}
-
-.building-pct {
-    font-size: 12px;
-    font-weight: 600;
-    text-align: right;
-}
-
-/* Alerts */
-.alerts-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.alert-item {
-    padding: 12px;
-    border-radius: var(--radius-sm);
-    border-left: 3px solid;
-}
-
-.alert-critical {
-    background: rgba(239, 68, 68, 0.08);
-    border-color: var(--danger);
-}
-
-.alert-warning {
-    background: rgba(245, 158, 11, 0.08);
-    border-color: var(--warning);
-}
-
-.alert-info {
-    background: rgba(59, 130, 246, 0.08);
-    border-color: var(--info);
-}
-
-.alert-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
-}
-
-.alert-loc {
-    font-size: 13px;
-    font-weight: 600;
-    flex: 1;
-}
-
-.alert-time {
-    font-size: 10px;
-    color: var(--text-muted);
-}
-
-.alert-msg {
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-.no-alerts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 30px;
-    color: var(--text-muted);
+    .kpi-strip {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

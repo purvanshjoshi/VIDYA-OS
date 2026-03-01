@@ -121,13 +121,27 @@ export default function LearnPage() {
         })
 
         return (
-            <div key={idx} className={`msg ${isUser ? 'msg-user' : 'msg-ai'} fade-in`}>
-                {!isUser && <div className="msg-avatar">🧠</div>}
-                <div className={`msg-bubble ${isUser ? 'bubble-user' : 'bubble-ai'} ${msg.streaming ? 'cursor' : ''}`}>
+            <motion.div
+                key={idx}
+                initial={{ y: 20, opacity: 0, scale: 0.95 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className={`msg ${isUser ? 'msg-user' : 'msg-ai'}`}
+            >
+                {!isUser && (
+                    <div className="msg-avatar ai-avatar-glow">
+                        <Brain size={18} color="var(--primary-violet)" />
+                    </div>
+                )}
+                <div className={`msg-bubble glass ${isUser ? 'bubble-user' : 'bubble-ai'} ${msg.streaming ? 'cursor' : ''}`}>
                     {rendered}
                 </div>
-                {isUser && <div className="msg-avatar user-av">YOU</div>}
-            </div>
+                {isUser && (
+                    <div className="msg-avatar user-av-premium">
+                        <span>YOU</span>
+                    </div>
+                )}
+            </motion.div>
         )
     }
 
@@ -135,10 +149,14 @@ export default function LearnPage() {
         <div className="learn-layout">
             {/* Left: Chat */}
             <div className="learn-chat">
-                <div className="page-header">
-                    <h1><span className="gradient-text">LEARN</span> — AI Tutor</h1>
-                    <p>Multilingual concept coaching powered by on-device LLM</p>
-                </div>
+                <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    className="page-header learn-header"
+                >
+                    <h1><span className="gradient-text">LEARN</span> — Zen Mode</h1>
+                    <p className="indic">Multilingual concept coaching powered by VIDYA Sovereign Agent</p>
+                </motion.div>
 
                 {/* Lang + actions */}
                 <div className="learn-controls">

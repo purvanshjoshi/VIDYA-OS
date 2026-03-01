@@ -6,12 +6,17 @@ const API = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 function TemplateCard({ tpl, selected, onClick }) {
     return (
-        <div className={`template-card glass glass-hover ${selected ? 'selected' : ''}`} onClick={onClick}>
+        <motion.div
+            whileHover={{ y: -5, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`template-card glass ${selected ? 'selected-premium' : ''}`}
+            onClick={onClick}
+        >
             <div className="tpl-icon">{tpl.icon}</div>
             <div className="tpl-name">{tpl.name}</div>
             <div className="tpl-desc">{tpl.description}</div>
-            {selected && <div className="tpl-check"><CheckCircle size={16} /> Selected</div>}
-        </div>
+            {selected && <div className="tpl-check"><CheckCircle size={16} /> Active</div>}
+        </motion.div>
     )
 }
 
@@ -150,10 +155,14 @@ export default function CreatePage() {
 
     return (
         <div className="create-page fade-in">
-            <div className="page-header">
-                <h1><span className="gradient-text" style={{ backgroundImage: 'linear-gradient(135deg,#f59e0b,#ef4444)' }}>CREATE</span> — AI App Builder</h1>
-                <p>Build and deploy AI-powered apps in minutes — no code required</p>
-            </div>
+            <motion.div
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="page-header learn-header"
+            >
+                <h1><span className="gradient-text">CREATE</span> — App Forge</h1>
+                <p className="indic">Sovereign no-code engine powered by Vidya Intelligence</p>
+            </motion.div>
 
             {/* Step indicator */}
             <div className="steps-bar">

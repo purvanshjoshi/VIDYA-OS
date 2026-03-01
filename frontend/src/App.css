@@ -5,19 +5,24 @@
   background: var(--surface-1);
 }
 
-/* ── Sidebar ── */
+/* ── Sidebar (Command Center) ── */
 .sidebar {
   width: var(--sidebar-width);
-  height: 100%;
-  background: var(--surface-2);
-  border-right: 1px solid var(--glass-border);
+  height: calc(100% - 32px);
+  margin: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-max);
   display: flex;
   flex-direction: column;
-  padding: 24px 16px;
-  gap: 8px;
+  padding: 32px 20px;
+  gap: 12px;
   flex-shrink: 0;
-  transition: transform var(--transition-main);
+  transition: all 0.5s var(--spring-heavy);
   z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar-overlay {
@@ -38,31 +43,33 @@
 }
 
 .logo-icon {
-  width: 44px;
-  height: 44px;
-  background: var(--surface-3);
-  border: 1px solid var(--glass-border-bright);
-  border-radius: var(--radius-md);
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary-violet), #c084fc);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary);
-  box-shadow: 0 0 20px var(--primary-glow);
+  color: white;
+  box-shadow: 0 0 25px var(--primary-glow);
 }
 
 .logo-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Clash Display', sans-serif;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 22px;
   letter-spacing: -0.01em;
   color: var(--text-pure);
+  line-height: 1.1;
 }
 
 .logo-sub {
-  font-size: 11px;
-  color: var(--text-ghost);
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-size: 10px;
+  color: var(--primary-violet);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 4px;
 }
 
 .sidebar-status {
@@ -98,47 +105,50 @@
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px 14px;
-  border-radius: var(--radius-md);
+  gap: 16px;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
   text-decoration: none;
   color: var(--text-dim);
-  transition: var(--transition-main);
+  transition: all 0.3s var(--spring-soft);
   border: 1px solid transparent;
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(124, 58, 237, 0.08);
   color: var(--text-pure);
+  transform: translateX(4px);
 }
 
 .nav-item.active {
-  background: var(--glass-bg);
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.15), transparent);
   color: var(--text-pure);
-  border: 1px solid var(--glass-border-bright);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-left: 3px solid var(--primary-violet);
+  box-shadow: none;
 }
 
 .nav-icon {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.02);
-  transition: var(--transition-main);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.3s var(--spring-soft);
 }
 
 .nav-item.active .nav-icon {
-  background: var(--nav-color);
+  background: var(--primary-violet);
   color: white;
-  box-shadow: 0 0 15px var(--nav-color);
+  box-shadow: 0 0 20px var(--primary-glow);
 }
 
 .nav-label {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
+  font-family: 'Clash Display', sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .nav-sub {
@@ -175,13 +185,16 @@
 .topbar {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 0 32px;
-  background: rgba(6, 6, 9, 0.6);
-  backdrop-filter: var(--glass-blur);
+  gap: 24px;
+  padding: 0 40px;
+  background: rgba(3, 3, 8, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--glass-border);
-  height: 72px;
+  height: 80px;
   z-index: 50;
+  position: sticky;
+  top: 0;
 }
 
 .topbar-menu {
@@ -195,10 +208,10 @@
 }
 
 .topbar-title {
-  font-size: 20px;
-  font-weight: 800;
-  font-family: 'Space Grotesk', sans-serif;
-  letter-spacing: -0.02em;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'Clash Display', sans-serif;
+  letter-spacing: -0.01em;
   flex: 1;
 }
 

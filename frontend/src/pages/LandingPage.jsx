@@ -49,25 +49,63 @@ export default function LandingPage() {
 
             {/* Hero */}
             <section className="hero">
-                <div className="hero-badge">
-                    <Cpu size={14} /> Powered by AMD Ryzen AI + Radeon GPU
-                </div>
-                <h1 className="hero-title">
+                <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="hero-core-wrap"
+                >
+                    <div className="sovereign-core">
+                        <div className="core-ring"></div>
+                        <div className="core-ring"></div>
+                        <div className="core-ring"></div>
+                        <Cpu size={40} className="core-icon" />
+                    </div>
+                </motion.div>
+
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                >
+                    <div className="hero-badge glass">
+                        <Zap size={14} style={{ color: 'var(--accent-saffron)' }} /> Powered by AMD Ryzen™ AI + ROCm™
+                    </div>
+                </motion.div>
+
+                <motion.h1
+                    className="hero-title"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                >
                     The OS Every Indian<br />
                     <span className="gradient-text">Campus Deserves</span>
-                </h1>
-                <p className="hero-sub">
+                </motion.h1>
+
+                <motion.p
+                    className="hero-sub"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.9 }}
+                >
                     VIDYA OS is a sovereign, on-device AI intelligence platform for colleges —<br />
-                    private, multilingual, and running entirely on AMD hardware. No cloud. No cost per query.
-                </p>
-                <div className="hero-actions">
-                    <Link to="/learn" className="btn btn-primary" style={{ fontSize: 15, padding: '12px 28px' }}>
-                        Start Learning <ArrowRight size={16} />
+                    private, multilingual, and running entirely on AMD hardware. No cloud. No compromise.
+                </motion.p>
+
+                <motion.div
+                    className="hero-actions"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1.1 }}
+                >
+                    <Link to="/learn" className="btn btn-primary">
+                        Start Learning <ArrowRight size={18} />
                     </Link>
-                    <Link to="/operate" className="btn btn-ghost" style={{ fontSize: 15, padding: '12px 28px' }}>
+                    <Link to="/operate" className="btn btn-ghost">
                         View Campus Dashboard
                     </Link>
-                </div>
+                </motion.div>
             </section>
 
             {/* Stats */}
@@ -85,19 +123,27 @@ export default function LandingPage() {
             <section className="pillars-section">
                 <div className="section-title">Three Superpowers</div>
                 <div className="pillars-grid">
-                    {pillars.map(({ to, icon: Icon, label, title, desc, color, tags }) => (
-                        <Link key={to} to={to} className="pillar-card glass glass-hover" style={{ '--p-color': color }}>
-                            <div className="pillar-icon-wrap">
-                                <Icon size={28} color={color} />
-                            </div>
-                            <div className="pillar-badge">{label}</div>
-                            <h3 className="pillar-title">{title}</h3>
-                            <p className="pillar-desc">{desc}</p>
-                            <div className="pillar-tags">
-                                {tags.map(t => <span key={t} className="ptag">{t}</span>)}
-                            </div>
-                            <div className="pillar-cta">Explore {label} <ArrowRight size={14} /></div>
-                        </Link>
+                    {pillars.map(({ to, icon: Icon, label, title, desc, color, tags }, idx) => (
+                        <motion.div
+                            key={to}
+                            initial={{ y: 30, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.2 }}
+                        >
+                            <Link to={to} className="pillar-card glass glass-hover" style={{ '--p-color': color }}>
+                                <div className="pillar-icon-wrap" style={{ background: `${color}10`, borderColor: `${color}30` }}>
+                                    <Icon size={28} color={color} />
+                                </div>
+                                <div className="pillar-badge" style={{ color: color }}>{label}</div>
+                                <h3 className="pillar-title">{title}</h3>
+                                <p className="pillar-desc">{desc}</p>
+                                <div className="pillar-tags">
+                                    {tags.map(t => <span key={t} className="ptag">{t}</span>)}
+                                </div>
+                                <div className="pillar-cta">Explore {label} <ArrowRight size={14} /></div>
+                            </Link>
+                        </motion.div>
                     ))}
                 </div>
             </section>
