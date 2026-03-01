@@ -1,3 +1,4 @@
+from fastapi import APIRouter
 from app.api.endpoints import learn, operate, create, meme
 
 api_router = APIRouter()
