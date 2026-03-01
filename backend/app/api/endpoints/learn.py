@@ -39,25 +39,25 @@ async def chat(request: ChatRequest):
     input_message = HumanMessage(content=user_prompt)
     
     async def token_generator():
-        # Stream from the graph
-        async for event in vidya_brain.astream(
-            {"messages": [input_message]}, 
-            config, 
-            stream_mode="values"
-        ):
-            # We look for the last message from the assistant
-            messages = event.get("messages", [])
-            if messages and hasattr(messages[-1], "content") and not isinstance(messages[-1], HumanMessage):
-                # For streaming actual tokens, we might need stream_mode="messages" 
-                # but for now we yield the full response once ready if it's the last step.
-                # To get real streaming tokens, LangGraph requires a specific setup.
-                # Let's use simple yield for the final message for now to maintain stability.
+        try:
+            # Stream from the graph
+            async for event in vidya_brain.astream(
+                {"messages": [input_message]}, 
+                config, 
+                stream_mode="values"
+            ):
                 pass
-        
-        # Get final state to yield the full message (stable baseline)
-        final_state = await vidya_brain.aget_state(config)
-        if final_state.values.get("messages"):
-            yield final_state.values["messages"][-1].content
+            
+            # Get final state to yield the full message (stable baseline)
+            final_state = await vidya_brain.aget_state(config)
+            if final_state.values.get("messages"):
+                yield final_state.values["messages"][-1].content
+        except Exception as e:
+            error_type = type(e).__name__
+            if "AuthenticationError" in error_type:
+                yield "[Error: System Authentication Failed. Please verify HF_API_TOKEN in backend settings.]"
+            else:
+                yield f"[Error: {error_type} - {str(e)}]"
 
     return StreamingResponse(token_generator(), media_type="text/plain")
 

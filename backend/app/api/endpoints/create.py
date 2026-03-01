@@ -83,16 +83,23 @@ async def app_chat(app_id: str, request: AppChatRequest):
     input_message = HumanMessage(content=user_prompt)
     
     async def token_generator():
-        # Start immediately in builder mode
-        async for event in vidya_brain.astream(
-            {"messages": [input_message]}, 
-            config,
-            stream_mode="values"
-        ):
-            pass
-        
-        final_state = await vidya_brain.aget_state(config)
-        if final_state.values.get("messages"):
-            yield final_state.values["messages"][-1].content
+        try:
+            # Start immediately in builder mode
+            async for event in vidya_brain.astream(
+                {"messages": [input_message]}, 
+                config,
+                stream_mode="values"
+            ):
+                pass
+            
+            final_state = await vidya_brain.aget_state(config)
+            if final_state.values.get("messages"):
+                yield final_state.values["messages"][-1].content
+        except Exception as e:
+            error_type = type(e).__name__
+            if "AuthenticationError" in error_type:
+                yield "[Error: System Authentication Failed. Please verify HF_API_TOKEN in backend settings.]"
+            else:
+                yield f"[Error: {error_type} - {str(e)}]"
 
     return StreamingResponse(token_generator(), media_type="text/plain")

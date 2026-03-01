@@ -16,6 +16,8 @@ class AgentState(TypedDict):
 
 # --- Model setup ---
 def get_model():
+    if not settings.HF_API_TOKEN:
+        print("Warning: HF_API_TOKEN is missing. Requests will likely fail.")
     return ChatOpenAI(
         model=settings.HF_MODEL_ID,
         api_key=settings.HF_API_TOKEN,
@@ -47,7 +49,7 @@ async def router_node(state: AgentState):
         response = await model.ainvoke(routing_prompt)
         intent = response.content.strip().upper()
     except Exception as e:
-        print(f"Routing Error: {e}")
+        print(f"Routing Error: {type(e).__name__}: {e}")
         # Default to LEARN if model fails (safer fallback)
         intent = "LEARN"
     
