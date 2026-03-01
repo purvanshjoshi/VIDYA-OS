@@ -9,9 +9,11 @@ router = APIRouter()
 
 
 class ChatRequest(BaseModel):
-    prompt: str
+    prompt: Optional[str] = None
+    messages: Optional[list] = None
     thread_id: Optional[str] = "default_user"
     mode: Optional[str] = "learn"
+    language: Optional[str] = "English"
 
 
 class QuizRequest(BaseModel):
@@ -23,8 +25,18 @@ class QuizRequest(BaseModel):
 async def chat(request: ChatRequest):
     """Stream a response from the LangGraph Agentic Brain."""
     
+    # Compatibility: Extract prompt from 'messages' if 'prompt' is missing
+    user_prompt = request.prompt
+    if not user_prompt and request.messages:
+        # Get the content of the last message in the list
+        last_msg = request.messages[-1]
+        user_prompt = last_msg.get("content") if isinstance(last_msg, dict) else str(last_msg)
+
+    if not user_prompt:
+        return StreamingResponse(iter(["[Error: No prompt or messages provided]"]), media_type="text/plain")
+
     config = {"configurable": {"thread_id": request.thread_id}}
-    input_message = HumanMessage(content=request.prompt)
+    input_message = HumanMessage(content=user_prompt)
     
     async def token_generator():
         # Stream from the graph

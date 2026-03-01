@@ -65,7 +65,7 @@ function MiniChat({ app }) {
             const resp = await fetch(`${API}/api/create/apps/${app.id}/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: newMsgs.map(m => ({ role: m.role, content: m.content })) })
+                body: JSON.stringify({ prompt: userMsg })
             })
             const reader = resp.body.getReader()
             const decoder = new TextDecoder()

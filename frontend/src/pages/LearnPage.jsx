@@ -70,7 +70,9 @@ export default function LearnPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    messages: newMessages.map(m => ({ role: m.role, content: m.content })),
+                    prompt: userMsg,
+                    thread_id: 'student_1', // In a real app, this would be the logged-in user's ID
+                    mode: 'learn',
                     language,
                 }),
             })
@@ -101,7 +103,7 @@ export default function LearnPage() {
             const resp = await fetch(`${API}/api/learn/quiz`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: lastUser ? [{ role: 'user', content: lastUser.content }] : [], language }),
+                body: JSON.stringify({ topic: lastUser?.content || 'General Science', language }),
             })
             const data = await resp.json()
             if (data.quiz?.length) { setQuiz(data.quiz); setQuizAnswers({}); setQuizSubmitted(false) }
@@ -231,9 +233,9 @@ export default function LearnPage() {
                 <div className="card">
                     <div className="card-title"><GraduationCap size={14} /> Model Info</div>
                     <div className="model-info">
-                        <div className="mi-row"><span className="mi-label">Model</span><span className="badge badge-primary">llama3.2</span></div>
-                        <div className="mi-row"><span className="mi-label">Inference</span><span className="badge badge-success">Local GPU</span></div>
-                        <div className="mi-row"><span className="mi-label">Privacy</span><span className="badge badge-success">On-Device</span></div>
+                        <div className="mi-row"><span className="mi-label">Model</span><span className="badge badge-primary">Phi-3.5-mini</span></div>
+                        <div className="mi-row"><span className="mi-label">Inference</span><span className="badge badge-success">HF Cloud</span></div>
+                        <div className="mi-row"><span className="mi-label">Privacy</span><span className="badge badge-success">Sovereign API</span></div>
                         <div className="mi-row"><span className="mi-label">Languages</span><span className="mi-val">4</span></div>
                     </div>
                 </div>
