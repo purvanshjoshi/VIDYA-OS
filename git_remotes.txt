@@ -1,4 +1,0 @@
-﻿origin	https://github.com/archittmittal/Slingshot (fetch)
-origin	https://github.com/archittmittal/Slingshot (push)
-vidya	https://github.com/purvanshjoshi/VIDYA-OS.git (fetch)
-vidya	https://github.com/purvanshjoshi/VIDYA-OS.git (push)
