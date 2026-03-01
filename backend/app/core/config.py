@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     # HuggingFace Inference API (replaces local model loading)
     HF_API_TOKEN: str = ""
-    HF_MODEL_ID: str = "microsoft/Phi-3.5-mini-instruct"  # Fast, free-tier SLM
+    HF_MODEL_ID: str = "meta-llama/Llama-3.2-3B-Instruct"  # High compatibility on HF Router
 
     # RAG Configuration (Qdrant Cloud)
     QDRANT_URL: str = "http://localhost:6333"
