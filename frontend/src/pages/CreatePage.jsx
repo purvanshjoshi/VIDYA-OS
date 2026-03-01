@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Wand2, Plus, Eye, Rocket, MessageSquare, CheckCircle, ChevronRight, Copy } from 'lucide-react'
 import './CreatePage.css'
 

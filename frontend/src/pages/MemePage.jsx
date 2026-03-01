@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Laugh, RefreshCw, Share2, Sparkles, Image as ImageIcon } from 'lucide-react'
 import './MemePage.css'
 

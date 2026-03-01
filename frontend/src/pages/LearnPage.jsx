@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Mic, MicOff, Send, BookOpen, GraduationCap, Languages, Sparkles, RotateCcw } from 'lucide-react'
 import './LearnPage.css'
 

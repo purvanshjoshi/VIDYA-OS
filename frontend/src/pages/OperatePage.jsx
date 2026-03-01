@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 import { Zap, Users, Wind, MapPin, AlertTriangle, CheckCircle, Info, RefreshCw } from 'lucide-react'
 import './OperatePage.css'

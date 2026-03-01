@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { Brain, LayoutDashboard, Wand2, Cpu, ArrowRight, Shield, Globe, Zap } from 'lucide-react'
 import './LandingPage.css'
 
