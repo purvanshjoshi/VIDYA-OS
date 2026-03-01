@@ -90,7 +90,7 @@ export default function LearnPage() {
             setMessages(m => m.map((msg, i) => i === m.length - 1 ? { ...msg, streaming: false } : msg))
         } catch (e) {
             setMessages(m => m.map((msg, i) => i === m.length - 1
-                ? { ...msg, content: '⚠️ Could not reach VIDYA OS backend. Make sure the server is running on port 8000.', streaming: false }
+                ? { ...msg, content: `⚠️ Could not reach VIDYA OS backend at ${API}. Check if the server is running and accessible.`, streaming: false }
                 : msg))
         }
         setLoading(false)

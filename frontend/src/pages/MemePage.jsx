@@ -40,7 +40,10 @@ export default function MemePage() {
             // In a real app, we'd use an image gen API too, but for this hackathon, 
             // we'll use a dynamic stylish text-based meme card.
             setMeme(data)
-        } catch (e) { console.error(e) }
+        } catch (e) {
+            console.error(e)
+            alert(`Meme generation failed. Could not reach backend at ${API}.`)
+        }
         setLoading(false)
     }
 

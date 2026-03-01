@@ -84,7 +84,7 @@ function MiniChat({ app }) {
             }
             setMsgs(m => m.map((msg, i) => i === m.length - 1 ? { ...msg, streaming: false } : msg))
         } catch (e) {
-            setMsgs(m => m.map((msg, i) => i === m.length - 1 ? { ...msg, content: '⚠️ Backend not reachable.', streaming: false } : msg))
+            setMsgs(m => m.map((msg, i) => i === m.length - 1 ? { ...msg, content: `⚠️ Backend not reachable at ${API}.`, streaming: false } : msg))
         }
         setLoading(false)
     }
@@ -144,7 +144,7 @@ export default function CreatePage() {
             setPublishedApp(app)
             setMyApps(a => [app, ...a])
             setStep('preview')
-        } catch (e) { alert('Backend not reachable. Start the server first.') }
+        } catch (e) { alert(`Backend not reachable at ${API}. Please check your connection.`) }
         setPublishing(false)
     }
 

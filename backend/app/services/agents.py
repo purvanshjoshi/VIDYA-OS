@@ -43,8 +43,13 @@ async def router_node(state: AgentState):
         HumanMessage(content=last_message)
     ]
     
-    response = await model.ainvoke(routing_prompt)
-    intent = response.content.strip().upper()
+    try:
+        response = await model.ainvoke(routing_prompt)
+        intent = response.content.strip().upper()
+    except Exception as e:
+        print(f"Routing Error: {e}")
+        # Default to LEARN if model fails (safer fallback)
+        intent = "LEARN"
     
     # Defaults
     next_node = "professor" if "LEARN" in intent else "builder"
