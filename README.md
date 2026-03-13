@@ -264,4 +264,6 @@ Built for **AMD Slingshot 2025** — National Hackathon
 
 **VIDYA OS · AMD Slingshot 2025 · Open Innovation**
 
+<!-- YOLO Badge Achievement -->
+
 </div>
