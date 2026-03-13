@@ -1,3 +1,12 @@
+---
+title: Vidya Os Backend
+emoji: 🌍
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # 🎓 VIDYA OS 2.0
 ### Sovereign Multi-Agent Campus Intelligence Platform
 
@@ -254,5 +263,7 @@ Built for **AMD Slingshot 2025** — National Hackathon
 *Built with ❤️ for India's 40 million college students*
 
 **VIDYA OS · AMD Slingshot 2025 · Open Innovation**
+
+<!-- YOLO Badge Achievement -->
 
 </div>
