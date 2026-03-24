@@ -1,13 +1,4 @@
----
-title: Vidya Os Backend
-emoji: 🌍
-colorFrom: blue
-colorTo: indigo
-sdk: docker
-pinned: false
----
-
-# 🎓 VIDYA OS 2.0
+## 🎓 VIDYA OS 2.0
 ### Sovereign Multi-Agent Campus Intelligence Platform
 
 [![AMD ROCm](https://img.shields.io/badge/AMD%20ROCm-6.2-ff0000?style=for-the-badge&logo=amd&logoColor=white)](https://www.amd.com/rocm)
